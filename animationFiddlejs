@@ -22,6 +22,72 @@ var direction = 1;
 animate();
 animate2();
 
+function drawrectP11() {
+      ctx.rect(30, 170, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "cyan";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("1",160,196);
+      }
+      
+function drawrectP12() {      
+      ctx.rect(210, 320, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "cyan";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("1",340,345);
+}
+
+function drawrectP13() {      
+      ctx.rect(220, 320, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "cyan";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("2",340,345);
+}
+
+function drawrectP21() {
+      ctx.rect(400, 170, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("1",530,196);
+}
+
+function drawrectP22() {
+      ctx.rect(40, 170, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("2",160,196);
+}
+
+function drawrectP23() {
+      ctx.rect(410, 170, 10, 40);
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.font = "20px Arial";
+      ctx.fillText("2",530,196);
+}
+
 function animate() {
     // set the animation position (0-100)
     percent += direction;
@@ -200,10 +266,12 @@ function draw(sliderValue) {
         }, {
             x: 100,
             y: 170
-        }, percent);       
+        }, percent);  
     } 
      //GREEN
      else if (sliderValue < 50) {
+     drawrectP11();
+     
         var percent = (sliderValue - 25) / 24
         xy = getQuadraticBezierXYatPercent({
             x: 100,
@@ -218,6 +286,7 @@ function draw(sliderValue) {
     }
      //BLUE
      else if (sliderValue < 75) {
+      drawrectP12();
         var percent = (sliderValue - 50) / 24
         xy = getCubicBezierXYatPercent({
             x: 360,
@@ -235,6 +304,7 @@ function draw(sliderValue) {
     }
      //PAHT 1 END
      else  {
+     drawrectP13();
         var percent = (sliderValue - 75) / 25
         xy = getLineXYatPercent({
             x: 280,
@@ -268,6 +338,7 @@ function draw2(sliderValue) {
   } 
   //PAHT 2.2
   else  if (sliderValue < 50) {
+   drawrectP21();
       var percent = (sliderValue - 25) / 24
       zj = getQuadraticBezierXYatPercent2({
           z: 400,
@@ -282,6 +353,7 @@ function draw2(sliderValue) {
   }
   //PAHT 2.3
   else  if (sliderValue < 75) {
+   drawrectP22();
       var percent = (sliderValue - 50) / 24
       zj = getQuadraticBezierXYatPercent2({
           z: 180,
@@ -296,6 +368,7 @@ function draw2(sliderValue) {
   } 
    //PAHT 2.4
   else  {
+   drawrectP23();
       var percent = (sliderValue - 75) / 25
       zj = getQuadraticBezierXYatPercent2({
           z: 550,
@@ -309,7 +382,6 @@ function draw2(sliderValue) {
       }, percent);
   }   
   drawRect2(zj, "black");
-  
 }
 
 
