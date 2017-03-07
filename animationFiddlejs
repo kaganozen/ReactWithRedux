@@ -22,7 +22,7 @@ var direction = 1;
 animate();
 animate2();
 animate3();
-
+animate4();
 
 function endP1() {
   ctx.fillStyle = "black";
@@ -93,7 +93,7 @@ function drawrectP14() {
   ctx.strokeStyle = 'black';
   ctx.stroke();
   ctx.font = "20px Arial";
-  ctx.fillText("3", 540, 180);
+  ctx.fillText("", 540, 180);
 }
 
 function drawrectP15() {
@@ -159,7 +159,7 @@ function drawrectP23() {
   ctx.strokeStyle = 'black';
   ctx.stroke();
   ctx.font = "20px Arial";
-  ctx.fillText("1", 615, 530);
+  ctx.fillText("2", 615, 530);
 }
 
 function drawrectP31() {
@@ -171,6 +171,17 @@ function drawrectP31() {
   ctx.stroke();
   ctx.font = "20px Arial";
   ctx.fillText("1", 230, 130);
+}
+
+function drawrectP41() {
+  ctx.rect(440, 150, 10, 50);
+  ctx.lineWidth = 2;
+  ctx.fillStyle = "black";
+  ctx.fill();
+  ctx.strokeStyle = 'black';
+  ctx.stroke();
+  ctx.font = "20px Arial";
+  ctx.fillText("4", 540, 180);
 }
 
 
@@ -230,6 +241,27 @@ function animate3() {
     requestAnimationFrame(animate3);
   }, 4000 / fps);
 }
+
+function animate4() {
+  // set the animation position (0-100)
+  percent += direction;
+  if (percent < 0) {
+    percent = 0;
+    direction = 1;
+  };
+  if (percent > 200) {
+    percent = 200;
+  };
+
+  draw4(percent);
+
+  // request another frame
+  setTimeout(function() {
+    requestAnimationFrame(animate4);
+  }, 4000 / fps);
+}
+
+
 
 
 
@@ -574,7 +606,7 @@ function draw(sliderValue) {
   //6.2 END
   else {
     drawrectP17();
-    endP1();
+    
     endP2();
     endP3();
     endP4();
@@ -623,6 +655,9 @@ function draw2(sliderValue) {
       z: 970,
       j: 320
     }, percent);
+    
+    /////////////////
+    
   }
   //PAHT 3.3
   else if (sliderValue < 150) {
@@ -638,6 +673,7 @@ function draw2(sliderValue) {
       z: 650,
       j: 510
     }, percent);
+    
   }
   //PAHT 6.3 END
   else {
@@ -661,6 +697,7 @@ function draw2(sliderValue) {
 function draw3(sliderValue) {
 
   var wq;
+  var ab;
 
   if (sliderValue < 100) {
     var percent = sliderValue / 99;
@@ -689,11 +726,43 @@ function draw3(sliderValue) {
       w: 120,
       q: 650
     }, percent);
-    
   }
 
 drawRect3(wq, "black");
 }
+
+    function draw4(sliderValue) {
+     var ab;
+     
+     if (sliderValue < 100) {
+    var percent = sliderValue / 99;
+    ab = getLineXYatPercent3({
+      a: 630,
+      b: 40
+    }, {
+      a: 480,
+      b: 150
+    }, percent);
+  }
+  
+   else   {
+   drawrectP41();
+   var percent = (sliderValue - 100) / 100
+     ab = getQuadraticBezierXYatPercent4({
+      a: 410,
+      b: 170
+    }, {
+      a: 150,
+      b: 150
+    }, {
+      a: 120,
+      b: 650
+    }, percent);
+  }
+  
+  drawRect4(ab, "black");
+    
+    }
 
 // draw tracking rect at xy
 function drawRect(point, color) {
@@ -722,6 +791,16 @@ function drawRect3(point, color) {
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.rect(point.w - 13, point.q - 8, 25, 15);
+  ctx.fill();
+  ctx.stroke();
+}
+
+function drawRect4(point, color) {
+  ctx.fillStyle = "black";
+  ctx.strokeStyle = "gray";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.rect(point.a - 13, point.b - 8, 25, 15);
   ctx.fill();
   ctx.stroke();
 }
@@ -760,6 +839,17 @@ function drawDot3(point, color) {
   ctx.stroke();
 }
 
+function drawDot4(point, color) {
+  ctx.fillStyle = color;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(point.a, point.b, 8, 0, Math.PI * 2, false);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+}
+
 // line: percent is 0-1
 function getLineXYatPercent(startPt, endPt, percent) {
   var dx = endPt.x - startPt.x;
@@ -780,6 +870,17 @@ function getLineXYatPercent2(startPt, endPt, percent) {
   return ({
     z: Z,
     j: J
+  });
+}
+
+function getLineXYatPercent3(startPt, endPt, percent) {
+  var da = endPt.a - startPt.a;
+  var db = endPt.b - startPt.b;
+  var A = startPt.a + da * percent;
+  var B = startPt.b + db * percent;
+  return ({
+    a: A,
+    b: B
   });
 }
 
@@ -808,6 +909,15 @@ function getQuadraticBezierXYatPercent3(startPt, controlPt, endPt, percent) {
   return ({
     w: w,
     q: q
+  });
+}
+
+function getQuadraticBezierXYatPercent4(startPt, controlPt, endPt, percent) {
+  var a = Math.pow(1 - percent, 2) * startPt.a + 2 * (1 - percent) * percent * controlPt.a + Math.pow(percent, 2) * endPt.a;
+  var b = Math.pow(1 - percent, 2) * startPt.b + 2 * (1 - percent) * percent * controlPt.b + Math.pow(percent, 2) * endPt.b;
+  return ({
+    a: a,
+    b: b
   });
 }
 
